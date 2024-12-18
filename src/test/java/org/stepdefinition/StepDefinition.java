@@ -1,5 +1,8 @@
 package org.stepdefinition;
 
+import java.util.List;
+import java.util.Map;
+
 import org.baseclass.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,12 +22,15 @@ public class StepDefinition extends BaseClass {
 
 	
 	@When("User have to enter the valid username and valid password")
-	public void user_have_to_enter_the_valid_username_and_valid_password() {
+	public void user_have_to_enter_the_valid_username_and_valid_password(io.cucumber.datatable.DataTable d) {
+		
+		List<Map<String, String>> mp = d.asMaps(String.class,String.class);
+		String email = mp.get(1).get("password");
 		WebElement txtemail = driver.findElement(By.id("email"));
-	    txtemail.sendKeys("eswarrajkumar74@gmail.com");
-	    
+	    txtemail.sendKeys(email);
+	    String password = mp.get(0).get("username");
 	    WebElement txtpass = driver.findElement(By.id("pass"));
-	    txtpass.sendKeys("jayanthi04");
+	    txtpass.sendKeys(password);
 	}
 	
 	@When("User have to click the login button")
